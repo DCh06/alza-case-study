@@ -1,1 +1,25 @@
-<p>hero-detail works!</p>
+@if(hero() || id() === 'new-hero') {
+<div class="example-form">
+  @if(hero()) {
+  <h2>{{ heroName }} Details!</h2>
+  }
+  <mat-form-field class="example-full-width">
+    <mat-label>Id</mat-label>
+    <input matInput disabled [value]="id()" />
+  </mat-form-field>
+  <mat-form-field class="example-full-width">
+    <mat-label>Name</mat-label>
+    <input matInput [(ngModel)]="heroName" />
+  </mat-form-field>
+</div>
+<div class="hero-actions">
+  <button (click)="save()" mat-raised-button>Save</button>
+  <button (click)="remove()" mat-raised-button>Remove</button>
+  <button (click)="toggleTop()" mat-raised-button>
+    {{ !hero()?.top ? "Make" : "Unmake" }} Top
+  </button>
+  <button class="back" (click)="back()" mat-raised-button>Back</button>
+</div>
+} @else {
+<h2>Error loading hero</h2>
+}

@@ -1,4 +1,14 @@
-<h3>Tour of Heroes</h3>
+<div class="header-wrapper">
+  <h3>Tour of Heroes</h3>
+  <button *ngIf="activeHero()" (click)="viewDetail()" mat-fab extended>
+    <mat-icon>add</mat-icon>
+    View detail
+  </button>
+  <button [routerLink]="['/new-hero']" mat-fab extended>
+    <mat-icon>add</mat-icon>
+    Add
+  </button>
+</div>
 <nav mat-tab-nav-bar [tabPanel]="tabPanel">
   <a
     [routerLink]="'list'"

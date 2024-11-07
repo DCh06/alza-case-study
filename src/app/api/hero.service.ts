@@ -1,20 +1,32 @@
 import { computed, Injectable, Signal, signal } from '@angular/core';
 import { IHero } from '../types/hero.interface';
+import { mockHeroes } from '../mock/heroes.mock';
 
 @Injectable({
   providedIn: 'root',
 })
 export class HeroService {
-  private last = signal<IHero | null>(null);
+  private selectedId = signal<number | null>(null);
   private heroes = signal<IHero[]>([]);
+
+  private selectedHero = computed(() => {
+    const y = this.selectedId();
+    return this.heroes().find((h) => h.id === y);
+  });
+
   private topHeroes = computed(() => {
     return this.heroes().filter((hero) => hero.top === true);
   });
 
-  constructor() {}
+  constructor() {
+    this.heroes.set([...mockHeroes]);
+  }
 
-  add(hero: IHero): void {
-    this.heroes.set([...this.heroes(), hero]);
+  add(hero: Omit<IHero, 'id'>): number {
+    const newId = this.biggestIdx() + 1;
+    this.heroes.set([...this.heroes(), { id: newId, ...hero }]);
+
+    return newId;
   }
 
   remove(heroId: number): void {
@@ -29,19 +41,29 @@ export class HeroService {
     this.heroes.set([...modifiedHeroes]);
   }
 
-  makeTop(hero: IHero) {
-    this.modify({ ...hero, top: true });
+  toggleTop(hero: IHero) {
+    this.modify({ ...hero, top: !hero.top });
   }
 
   getAll(): Signal<IHero[]> {
     return this.heroes.asReadonly();
   }
 
-  getLast(): Signal<IHero | null> {
-    return this.last.asReadonly();
+  getActive(): Signal<IHero | undefined> {
+    return this.selectedHero;
+  }
+
+  select(id: number | null): void {
+    const newId = id !== null ? +id : null;
+    this.selectedId.set(newId);
   }
 
   getAllTop(): Signal<IHero[]> {
     return this.topHeroes;
   }
+
+  // this should be be/db
+  biggestIdx = computed(() => {
+    return Math.max(...this.heroes().map((h) => h.id));
+  });
 }

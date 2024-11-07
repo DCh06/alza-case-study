@@ -1,1 +1,17 @@
-<p>hero-dashboard works!</p>
+<div class="dashboard-wrapper">
+  <h2>Top Heroes!</h2>
+</div>
+<div class="hero-wrapper">
+  @for (hero of heroes(); track hero.id) {
+
+  <mat-card
+    [routerLink]="['/' + hero.id]"
+    class="card-hero"
+    appearance="outlined"
+  >
+    <mat-card-content>
+      <div>{{ hero.name }}</div>
+    </mat-card-content>
+  </mat-card>
+  }
+</div>

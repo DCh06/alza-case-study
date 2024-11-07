@@ -12,6 +12,7 @@ export const routes: Route[] = [
       { path: 'list', component: HeroListComponent },
       { path: 'dashboard', component: HeroDashboardComponent },
       { path: ':id', component: HeroDetailComponent },
+      { path: '', redirectTo: 'list', pathMatch: 'full' },
     ],
   },
 ];

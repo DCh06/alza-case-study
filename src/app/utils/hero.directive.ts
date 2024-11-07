@@ -1,15 +1,13 @@
-import { Directive } from '@angular/core';
+import { Directive, HostBinding, Input } from '@angular/core';
 
 @Directive({
   selector: '[appHero]',
   standalone: true,
 })
 export class HeroDirective {
-  transform(value: string) {
-    if (value.length > 10) {
-      return value.substring(0, 10) + '...';
-    }
+  @Input() appHero!: string;
 
-    return value;
+  @HostBinding('class.invisible') get invisible() {
+    return this.appHero.length > 10;
   }
 }

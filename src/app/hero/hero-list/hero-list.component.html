@@ -1,1 +1,15 @@
-<p>hero-list works!</p>
+@for (hero of heroes(); track hero.id) {
+<div (click)="selectHero(hero.id)" class="card-wrapper">
+  <mat-card
+    class="clickable card-hero"
+    [class.highlighted]="activeHero()?.id === hero.id"
+    [appHero]="hero.name"
+    appearance="outlined"
+  >
+    <div class="card-hero-index">{{ hero.id }}</div>
+    <mat-card-content>
+      <div>{{ hero.name }}</div>
+    </mat-card-content>
+  </mat-card>
+</div>
+}

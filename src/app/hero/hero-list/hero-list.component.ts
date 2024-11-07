@@ -10,5 +10,9 @@ export class HeroListComponent {
   heroService = inject(HeroService);
 
   heroes = this.heroService.getAll();
-  lastSelected = this.heroService.getLast();
+  activeHero = this.heroService.getActive();
+
+  selectHero(heroId: number) {
+    this.heroService.select(heroId);
+  }
 }

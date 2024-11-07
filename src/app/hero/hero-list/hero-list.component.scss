@@ -1,0 +1,37 @@
+.clickable {
+  cursor: pointer;
+}
+
+.card-hero {
+  display: flex;
+  flex-direction: row;
+  padding-bottom: 0;
+
+  &.highlighted {
+    background-color: #723600;
+  }
+
+  &.invisible {
+    opacity: 0.2;
+  }
+}
+
+.card-hero-index {
+  background-color: #723600;
+}
+
+.card-hero-index {
+  padding: 16px;
+}
+
+mat-card-content {
+  padding-top: 16px;
+}
+
+mat-card {
+  overflow: hidden;
+}
+
+.card-wrapper {
+  padding-top: 16px;
+}
